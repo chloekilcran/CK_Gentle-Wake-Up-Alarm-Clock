@@ -1,7 +1,7 @@
 // Project: Gentle Wake Up Alarm Clock
-#include <Wire.h>
-#include <RTClib.h>
-#include <LiquidCrystal.h>
+#include <Wire.h> //Assists communication with I2C devices
+#include <RTClib.h> //Lets Arduino read and set real time from RTC
+#include <LiquidCrystal.h> //Allows Arduino to communicate with the display
 
 // --- LCD Setup ---
 LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
@@ -27,7 +27,7 @@ bool colonVisible = true;
 unsigned long lastBlinkTime = 0;
 const int blinkInterval = 1000;
 
-// --- Tone Notes ---
+// --- Define Tone Notes ---
 #define NOTE_C4  262
 #define NOTE_D4  294
 #define NOTE_E4  330
@@ -42,7 +42,7 @@ int melody[] = { NOTE_C4, NOTE_E4, NOTE_G4, NOTE_C5, NOTE_B4, NOTE_A4 };
 int noteDurations[] = { 6, 6, 6, 6, 6, 6 };
 
 // --- Setup ---
-void setup() {
+void setup() { //Runs once when you turn it on
   Serial.begin(9600);
   Wire.begin();
   rtc.begin();
@@ -65,8 +65,8 @@ void setup() {
 }
 
 // --- Loop ---
-void loop() {
-  DateTime now = rtc.now();
+void loop() { //Runs forever
+  DateTime now = rtc.now(); //The RTC sends the exact current hour and minute.
 
   // Blink colon every second
   if (millis() - lastBlinkTime >= blinkInterval) {
